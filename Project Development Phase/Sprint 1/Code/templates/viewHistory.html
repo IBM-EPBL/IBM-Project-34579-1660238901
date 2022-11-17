@@ -1,0 +1,63 @@
+{% extends 'head.html' %} {% block body %} {% include 'header.html' %} {%
+include 'sidebar.html' %}
+<main id="main" class="main">
+  {% block main %}
+
+  <table class="table table-hover" id="expense-records">
+    <thead>
+      <tr>
+        <th scope="col">Category</th>
+        <th scope="col">Date</th>
+        <th scope="col">Description</th>
+        <th scope="col">Mode of payment</th>
+        <th scope="col">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in expense %}
+      <tr>
+        <td>{{ row.get("CATEGORY") }}</td>
+        <td>{{ row.get("DATE")}}</td>
+        <td>{{ row.get("DESCRIPTION")}}</td>
+        <td>{{ row.get("MODEOFPAYMENT")}}</td>
+        <td>{{ row.get("AMOUNT")}}</td>
+
+        <td>
+          <button
+            type="button"
+            class="btn btn-warning"
+            id="edit-expense-form"
+            data-bs-toggle="modal"
+            data-bs-target="#editExpenseModal"
+            value='{{ row["EXPENSEID"] }}'
+          >
+            <i class="fa fa-pen-to-square"></i>
+          </button>
+          <form action="expenseRecords" method="post">
+            <input
+              type="text"
+              name="expenseid"
+              value='{{ row["EXPENSEID"] }}'
+              hidden
+            />
+            <button
+              class="btn btn-danger"
+              type="submit"
+              name="submit"
+              value="deleteExpense"
+            >
+              <i class="fa fa-trash"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endblock %}
+</main>
+{% include 'footer.html' %}
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"
+  ><i class="bi bi-arrow-up-short"></i
+></a>
+{% endblock %}
