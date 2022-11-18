@@ -1,0 +1,86 @@
+{% extends 'head.html' %} {% block body %} {% include 'header.html' %} {%
+include 'sidebar.html' %}
+<main id="main" class="main">
+  {% block main %}
+  <h5 class="card-title">Monthly Savings</h5>
+  <!-- Line Chart -->
+  <canvas id="lineChart" style="max-height: 400px"></canvas>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      new Chart(document.querySelector("#lineChart"), {
+        type: "line",
+        data: {
+          labels: [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+          ],
+          datasets: [
+            {
+              label: "Line Chart",
+              data: [65, 59, 80, 81, 56, 55, 40],
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    });
+  </script>
+  <!-- End Line CHart -->
+  <div class="category-charts">
+    {% for num in range(1,5) %}
+    <div>
+      <h5 class="card-title">Pie Chart</h5>
+      <!-- Pie Chart -->
+      <div class="pie-chart-container">
+        <canvas
+          id='{{"piechart"+num|string}}'
+          style="max-height: 400px"
+        ></canvas>
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            new Chart(document.querySelector('{{"#piechart"+num|string}}'), {
+              type: "pie",
+              data: {
+                labels: ["Red", "Blue", "Yellow"],
+                datasets: [
+                  {
+                    label: "My First Dataset",
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                      "rgb(255, 99, 132)",
+                      "rgb(54, 162, 235)",
+                      "rgb(255, 205, 86)",
+                    ],
+                    hoverOffset: 4,
+                  },
+                ],
+              },
+            });
+          });
+        </script>
+      </div>
+      <!-- End Pie CHart -->
+    </div>
+    {% endfor %}
+  </div>
+  {% endblock %}
+</main>
+{% include 'footer.html' %}
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"
+  ><i class="bi bi-arrow-up-short"></i
+></a>
+{% endblock %}
