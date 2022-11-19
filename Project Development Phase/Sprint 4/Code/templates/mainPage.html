@@ -1,0 +1,112 @@
+{% extends 'head.html' %} {% block body %} {% include 'header.html' %} {%
+include 'sidebar.html' %}
+<main id="main" class="main">
+  {% block main %}
+  <h5 class="card-title">Monthly Expense</h5>
+  <canvas id="lineChart" style="max-height: 400px"></canvas>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      new Chart(document.querySelector("#lineChart"), {
+        type: "line",
+        data: {
+          labels: [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ],
+          datasets: [
+            {
+              label: "Line Chart",
+              data: JSON.parse("{{lineChart}}"),
+              fill: false,
+              borderColor: "rgb(50, 140, 172)",
+              tension: 0.1,
+            },
+          ],
+        },
+      });
+    });
+  </script>
+  <br />
+  <h5 class="card-title">Category Wise Expense</h5>
+  <div class="category-charts">
+    {% for i in range(0,size) %}
+    <div>
+      <h5 class="card-title">{{categoryNames[i]}}</h5>
+      <div class="pie-chart-container">
+        <canvas id="{{categoryNames[i]}}" style="max-height: 400px"></canvas>
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            new Chart(document.querySelector("{{'#'+categoryNames[i]}}"), {
+              type: "bar",
+              data: {
+                labels: [
+                  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December",
+                ],
+                datasets: [
+                  {
+                    label: "{{categoryNames[i]}}",
+                    data: JSON.parse("{{barChart[i]}}"),
+                    backgroundColor: [
+                      "rgba(255, 99, 132, 0.2)",
+                      "rgba(255, 159, 64, 0.2)",
+                      "rgba(255, 205, 86, 0.2)",
+                      "rgba(75, 192, 192, 0.2)",
+                      "rgba(54, 162, 235, 0.2)",
+                      "rgba(153, 102, 255, 0.2)",
+                      "rgba(201, 203, 207, 0.2)",
+                    ],
+                    borderColor: [
+                      "rgb(255, 99, 132)",
+                      "rgb(255, 159, 64)",
+                      "rgb(255, 205, 86)",
+                      "rgb(75, 192, 192)",
+                      "rgb(54, 162, 235)",
+                      "rgb(153, 102, 255)",
+                      "rgb(201, 203, 207)",
+                    ],
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              },
+            });
+          });
+        </script>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endblock %}
+</main>
+{% include 'footer.html' %}
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"
+  ><i class="bi bi-arrow-up-short"></i
+></a>
+{% endblock %}

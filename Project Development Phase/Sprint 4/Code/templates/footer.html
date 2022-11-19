@@ -1,0 +1,27 @@
+{% block footer %}
+<script>
+  window.watsonAssistantChatOptions = {
+    integrationID: "f7d1ccdd-bfea-4b89-86f5-6b39dec5265b", // The ID of this integration.
+    region: "au-syd", // The region your integration is hosted in.
+    serviceInstanceID: "6b723561-f3c4-4758-abeb-fce62fe509e2", // The ID of your service instance.
+    onLoad: function (instance) {
+      instance.render();
+    },
+  };
+  setTimeout(function () {
+    const t = document.createElement("script");
+    t.src =
+      "https://web-chat.global.assistant.watson.appdomain.cloud/versions/" +
+      (window.watsonAssistantChatOptions.clientVersion || "latest") +
+      "/WatsonAssistantChatEntry.js";
+    document.head.appendChild(t);
+  });
+</script>
+<footer id="footer" class="footer">
+  <div class="copyright">
+    <!-- <h1>Welcome to Expense Tracker</h1> -->
+
+    &copy; Personal Expense Tracker: <strong>IBM-Project</strong>
+  </div>
+</footer>
+{% endblock %}

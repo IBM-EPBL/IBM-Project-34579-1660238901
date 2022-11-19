@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expensetracker
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: expensetracker
+  template:
+    metadata:
+      labels:
+        app: expensetracker
+
+    spec:
+      containers:
+        - name: expensetracker-container
+          image:  jp.icr.io/varuns/rengoku
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+              protocol: TCP
