@@ -1,0 +1,35 @@
+{% extends 'head.html' %} {% block body %} {% include 'header.html' %} {%
+include 'sidebar.html' %}
+<main id="main" class="main">
+  {% block main %}
+  <div class="table-wrapper">
+    <table class="fl-table" id="expense-records">
+      <thead>
+        <tr>
+          <th scope="col">Category</th>
+          <th scope="col">Date</th>
+          <th scope="col">Description</th>
+          <th scope="col">Mode of payment</th>
+          <th scope="col">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in expense %}
+        <tr>
+          <td>{{ row.get("CATEGORY") }}</td>
+          <td>{{ row.get("SPENTONDATE").sp }}</td>
+          <td>{{ row.get("DESCRIPTION")}}</td>
+          <td>{{ row.get("MODEOFPAYMENT")}}</td>
+          <td>{{ row.get("AMOUNT")}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endblock %}
+</main>
+{% include 'footer.html' %}
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"
+  ><i class="bi bi-arrow-up-short"></i
+></a>
+{% endblock %}
